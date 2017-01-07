@@ -7,10 +7,84 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="cn.hwwwwh.networkmanager.MainActivity">
+    tools:context="cn.hwwwwh.networkmanager.MainActivity"
+    android:id="@+id/e"
+    android:contextClickable="false">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp"
+        android:id="@+id/textView" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="网络连通性监测"
+        android:id="@+id/switch1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:enabled="true"
+        android:showText="false"
+        android:switchPadding="10dp" />
+    <RadioGroup
+        android:layout_above="@+id/switch1"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="监测时间"
+            android:id="@+id/textView2"
+            android:textSize="14sp"
+            android:layout_alignTop="@+id/radioButton2"
+            android:layout_above="@+id/switch1"
+            android:gravity="center_vertical"
+            android:textColor="#272727" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10秒"
+            android:id="@+id/radioButton"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15秒"
+            android:id="@+id/radioButton2" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20秒"
+            android:id="@+id/radioButton3"/>
+        <EditText
+            android:id="@+id/inputTime"
+            android:layout_marginStart="5dp"
+            android:layout_above="@+id/switch1"
+            android:layout_toEndOf="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="秒"
+            android:id="@+id/textView3"
+            android:layout_alignBottom="@+id/radioButton3"
+            android:layout_toEndOf="@+id/inputTime"
+            android:layout_alignTop="@+id/radioButton3"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+    </RadioGroup>
 </RelativeLayout>
