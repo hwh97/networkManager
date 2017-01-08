@@ -1,13 +1,18 @@
 package cn.hwwwwh.networkmanager;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.os.AsyncTask;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -20,6 +25,7 @@ import com.loopj.android.http.HttpGet;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -47,7 +53,12 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton radioButton2;
     private RadioButton radioButton3;
     private RadioButton radioButton4;
+    private CheckBox checkBox1;
+    private CheckBox checkBox2;
+    private CheckBox checkBox3;
     private Toast toast;
+    private Vibrator vibrator;
+    private MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                     editText.setEnabled(true);
                     cancelTimer();
                     cancelToast();
+                    if(vibrator !=null) {
+                        vibrator.cancel();
+                    }
+                    if(mp!=null) {
+                        mp.stop();
+                    }
                 }
             }
         });
@@ -126,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             timerTask.cancel();
             timerTask=null;
         }
+
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -156,6 +174,10 @@ public class MainActivity extends AppCompatActivity {
         radioButton2=(RadioButton)findViewById(R.id.radioButton2);
         radioButton3=(RadioButton)findViewById(R.id.radioButton3);
         radioButton4=(RadioButton)findViewById(R.id.radioButton4);
+        checkBox1=(CheckBox)findViewById(R.id.checkBox);
+        checkBox2=(CheckBox)findViewById(R.id.checkBox2);
+        checkBox3=(CheckBox)findViewById(R.id.checkBox3);
+        vibrator=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     public void showToast(String text) {
@@ -173,6 +195,36 @@ public class MainActivity extends AppCompatActivity {
             toast.cancel();
         }
     }
+
+    public boolean getCheckBox(CheckBox checkBox){
+        if(checkBox!=null){
+            return checkBox.isChecked();
+        }
+        return false;
+    }
+
+    public void openVibrator(){
+        long[] pattern={100,400};
+        vibrator.vibrate(pattern,-1);
+    }
+
+    public void playMedia(){
+        mp=new MediaPlayer();
+        try {
+            mp.setDataSource(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+            mp.prepare();
+            mp.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onStop(){
+        super.onStop();
+        vibrator.cancel();
+        mp.stop();
+    }
+
     class myAsyncTask extends AsyncTask<String,Boolean,Boolean>{
         private MainActivity activity;
         public myAsyncTask(Activity activity){
@@ -202,7 +254,15 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean s) {
             Log.d("Tag", s.toString());
             if(s){
-                showToast("网络连接成功");
+                if(getCheckBox(checkBox1)){
+                    showToast("网络连接成功");
+                }
+                if(getCheckBox(checkBox2)){
+                    openVibrator();
+                }
+                if (getCheckBox(checkBox3)) {
+                    playMedia();
+                }
             }
             super.onPostExecute(s);
         }
