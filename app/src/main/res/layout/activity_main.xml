@@ -33,58 +33,54 @@
         android:showText="false"
         android:switchPadding="10dp" />
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_above="@+id/switch1"
-        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="监测时间"
+            android:text="监测时间(秒)"
             android:id="@+id/textView2"
             android:textSize="14sp"
-            android:layout_alignTop="@+id/radioButton2"
-            android:layout_above="@+id/switch1"
             android:gravity="center_vertical"
             android:textColor="#272727" />
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10秒"
+            android:text="10"
             android:id="@+id/radioButton"
             android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15秒"
+            android:layout_gravity="center"
+            android:text="15"
             android:id="@+id/radioButton2" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20秒"
+            android:text="20"
             android:id="@+id/radioButton3"/>
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:enabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
         <EditText
             android:id="@+id/inputTime"
-            android:layout_marginStart="5dp"
-            android:layout_above="@+id/switch1"
-            android:layout_toEndOf="@+id/radioButton3"
-            android:layout_width="wrap_content"
+            android:layout_weight="0"
+            android:singleLine="true"
+            android:maxLength="4"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="秒"
-            android:id="@+id/textView3"
-            android:layout_alignBottom="@+id/radioButton3"
-            android:layout_toEndOf="@+id/inputTime"
-            android:layout_alignTop="@+id/radioButton3"
-            android:textColor="#000000"
+            android:inputType="number"
             android:textSize="15sp" />
+
     </RadioGroup>
 </RelativeLayout>
